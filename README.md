@@ -112,9 +112,11 @@ function actionIndex()
 use shiyang\infinitescroll\InfiniteScrollPager;
 
 <div id="content">
+<?php 
 foreach ($models as $model) {
     // display $model here
 }
+?>
 </div>
  
 // display pagination
