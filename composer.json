@@ -11,8 +11,8 @@
     "type": "yii2-extension",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/shiyang/yii2-infinite-scroll/issues",
-        "source": "https://github.com/shiyang/yii2-infinite-scroll"
+        "issues": "https://github.com/shi-yang/yii2-infinite-scroll/issues",
+        "source": "https://github.com/shi-yang/yii2-infinite-scroll"
     },
     "authors": [
         {
