@@ -5,7 +5,7 @@
  * @license GPL-2.0
  */
 
-namespace nirvana\infinitescroll;
+namespace shiyang\infinitescroll;
 
 use Yii;
 use yii\base\Widget;
@@ -133,14 +133,14 @@ class InfiniteScrollPager extends Widget
             ]);
         }
 
-        $widgetSelector = '#' . $this->widgetId;
+        $widgetSelector = $this->widgetId;
 
         // Set default plugin selectors / options if not configured
         if (is_null(ArrayHelper::getValue($this->pluginOptions, 'maxPage', null)))
             $this->pluginOptions['maxPage'] = $this->pagination->getPageCount();
 
         if (is_null(ArrayHelper::getValue($this->pluginOptions, 'contentSelector', null)))
-            $this->pluginOptions['contentSelector'] = $widgetSelector . ' .' . $this->itemsCssClass;
+            $this->pluginOptions['contentSelector'] = $widgetSelector;
 
         if (is_null(ArrayHelper::getValue($this->pluginOptions, 'itemSelector', null)))
             $this->pluginOptions['itemSelector'] = $this->pluginOptions['contentSelector'] . ' >';
@@ -155,7 +155,7 @@ class InfiniteScrollPager extends Widget
             $this->pluginOptions['loading'] = [];
         if (is_null(ArrayHelper::getValue($this->pluginOptions['loading'], 'img', null))) {
             $assetManager = $this->view->getAssetManager();     // Publish loader img
-            list ($imgPath, $imgUrl) = $assetManager->publish('@vendor/nirvana-msu/yii2-infinite-scroll/assets/images/ajax-loader.gif');
+            list ($imgPath, $imgUrl) = $assetManager->publish('@vendor/shiyang/yii2-infinite-scroll/assets/images/ajax-loader.gif');
             $this->pluginOptions['loading']['img'] = $imgUrl;
         }
     }
@@ -247,11 +247,12 @@ class InfiniteScrollPager extends Widget
             $this->contentLoadedCallback = new JsExpression($this->contentLoadedCallback);
         }
         $contentLoadedCallback = Json::encode($this->contentLoadedCallback);
-
-        $this->view->registerJs("$('" . $this->pluginOptions['contentSelector'] . "').infinitescroll(" . $pluginOptions . ", " . $contentLoadedCallback . ");",
-            View::POS_END, $this->widgetId . '-infinite-scroll');
+        if (empty($contentLoadedCallback)) {
+            $this->view->registerJs("$('" . $this->pluginOptions['contentSelector'] . "').infinitescroll(" . $pluginOptions . ");",
+                View::POS_END, $this->widgetId . '-infinite-scroll');
+        } else {
+            $this->view->registerJs("$('" . $this->pluginOptions['contentSelector'] . "').infinitescroll(" . $pluginOptions . ", " . $contentLoadedCallback . ");",
+                View::POS_END, $this->widgetId . '-infinite-scroll');
+        }
     }
 }
-
-?>
-

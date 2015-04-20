@@ -5,7 +5,7 @@
  * @license MIT
  */
 
-namespace nirvana\infinitescroll;
+namespace shiyang\infinitescroll;
 
 use Yii;
 use yii\web\AssetBundle;
