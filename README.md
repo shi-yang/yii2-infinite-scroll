@@ -21,7 +21,7 @@ Add extension to your `composer.json` and update your dependencies as usual, e.g
 ```js
 {
     "require": {
-        "shiyang/yii2-infinite-scroll": "1.0.*@dev"
+        "shiyang/yii2-infinite-scroll": "*"
     }
 }
 ```
@@ -44,6 +44,8 @@ set `itemCssClass` (class of that wrapping tag that we created) and `widgetId` (
 
 So the minimal required configuration would look like this:
 ```php
+use shiyang\infinitescroll\InfiniteScrollPager;
+
 echo ListView::widget([
     ...
     'id' => 'my-listview-id',
@@ -58,6 +60,8 @@ echo ListView::widget([
 
 An example illustrating how to customize some widget / plugin options: 
 ```php
+use shiyang\infinitescroll\InfiniteScrollPager;
+
 echo ListView::widget([
     ...
     'id' => 'my-listview-id',
@@ -79,6 +83,16 @@ echo ListView::widget([
             'behavior' => InfiniteScrollPager::BEHAVIOR_TWITTER,
         ],
     ],
+]);
+```
+
+Or
+```
+use shiyang\infinitescroll\InfiniteScrollPager;
+
+echo InfiniteScrollPager::widget([
+   	'pagination' => $pages,
+   	'widgetId' => '#content',
 ]);
 ```
 
