@@ -2,7 +2,7 @@
 /**
  * @link https://github.com/nirvana-msu/yii2-infinite-scroll
  * @copyright Copyright (c) 2014 Alexander Stepanov
- * @license GPL-2.0
+ * @license MIT
  */
 
 namespace shiyang\infinitescroll;
@@ -146,18 +146,13 @@ class InfiniteScrollPager extends Widget
             $this->pluginOptions['itemSelector'] = $this->pluginOptions['contentSelector'] . ' >';
 
         if (is_null(ArrayHelper::getValue($this->pluginOptions, 'navSelector', null)))
-            $this->pluginOptions['navSelector'] = $widgetSelector . " ul." . $this->options['class'];
+            $this->pluginOptions['navSelector'] = "ul." . $this->options['class'];
 
         if (is_null(ArrayHelper::getValue($this->pluginOptions, 'nextSelector', null)))
             $this->pluginOptions['nextSelector'] = $this->pluginOptions['navSelector'] . ' li.' . $this->nextPageCssClass . " a:first";
 
         if (is_null(ArrayHelper::getValue($this->pluginOptions, 'loading', null)))
             $this->pluginOptions['loading'] = [];
-        if (is_null(ArrayHelper::getValue($this->pluginOptions['loading'], 'img', null))) {
-            $assetManager = $this->view->getAssetManager();     // Publish loader img
-            list ($imgPath, $imgUrl) = $assetManager->publish('@vendor/shiyang/yii2-infinite-scroll/assets/images/ajax-loader.gif');
-            $this->pluginOptions['loading']['img'] = $imgUrl;
-        }
     }
 
     /**
@@ -241,6 +236,8 @@ class InfiniteScrollPager extends Widget
             ArrayHelper::getValue($this->pluginOptions, 'loading', null));  // Removing null entries
         if (empty($pluginOptions['loading']))
             unset($pluginOptions['loading']);
+        if (!isset($pluginOptions['animate']))
+            $pluginOptions['animate'] = true;
         $pluginOptions = Json::encode($pluginOptions);
 
         if (!$this->contentLoadedCallback instanceof JsExpression) {
